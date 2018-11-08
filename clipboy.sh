@@ -1,7 +1,7 @@
 #!/bin/bash
 ## clipboy
 ## - reads from clipboard and does things
-## version 0.0.1 - initial
+## version 0.0.2 - clipboy dialog
 ##################################################
 . ${SH2}/error.sh		# error handling
 error "true"			# show errors
@@ -23,23 +23,84 @@ initialize() {
 clipboy-say() {
  cecho green "${@}"
 }
-clipboy-run() {
- clipboy-say "Hey!"
+clipboy-stretch() {
+ clipboy-say $( clipboy-dialog stretch )
  touch "${temp}-clipboard"
+ sleep 3
+ clipboy-say "Me's stetchy!"
+}
+clipboy-run() {
+ clipboy-say $( clipboy-dialog hi )
+ clipboy-stretch
+ sleep 2
  while [ ! ]
  do
-  cat /dev/clipboard > ${temp}-infile
-  diff ${temp}-{clipboard,infile} || true
+  clipboy-eat
+  clipboy-think
   ################################################
   ## =todo=
   ## + add payload here
   ################################################
   #read
-  break
+  #break
+  clipboy-sleep
   ################################################
  done
- clipboy-say "Bye!"
+ clipboy-say $( clipboy-dialog bye )
 }
+clipboy-eat() {
+  clipboy-say $( clipboy-dialog hungry )
+  {
+    cat /dev/clipboard > ${temp}-infile
+  } 1>/dev/null
+  clipboy-say $( clipboy-dialog delicious )
+}
+clipboy-think() {
+  clipboy-say $( clipboy-dialog thinking )
+  ################################################
+  ## =todo=
+  ## + add some decision making here
+  ################################################
+  {
+    {
+      diff ${temp}-{clipboard,infile} || true
+    } | head -n 3 
+  } 1>/dev/null
+  ################################################
+}
+clipboy-sleep() {
+ clipboy-say $( clipboy-dialog sleepy )
+ sleep 5
+}
+##################################################
+## =notes=
+## + add extra dialogs here
+##################################################
+clipboy-dialog-hi() {
+ echo "Hey!"
+}
+clipboy-dialog-bye() {
+ echo "Bye!"
+}
+clipboy-dialog-stretch() {
+ echo "Me's stretch first.."
+}
+clipboy-dialog-hungry() {
+ echo "Me's hungry ..."
+}
+clipboy-dialog-delicious() {
+ echo "Um.. Um.. Yummy!"
+}
+clipboy-dialog-thinking() {
+ echo "Me's thinking..."
+}
+clipboy-dialog-sleepy() {
+ echo "Me's sleepy..."
+}
+clipboy-dialog() {
+ commands
+}
+##################################################
 clipboy() {
  initialize
  commands
