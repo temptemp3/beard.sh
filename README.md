@@ -20,6 +20,6 @@ bash clipboy.sh run
 
 ### installation and requirements
 
-write me
+write me: installation and requirement details beyond quickstart
 
 ---
