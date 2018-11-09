@@ -1,2 +1,3 @@
 # clipboy.sh
-Reads from clipboard and tries to guess what to do with contents
+
+Reads from clipboard and performs actions based on contents
