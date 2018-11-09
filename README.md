@@ -12,6 +12,10 @@ cd clipboy.sh
 bash clipboy.sh run
 ```
 
+### todo
+
+ + include sh2 installation in quickstart
+
 ---
 
 ### installation and requirements
