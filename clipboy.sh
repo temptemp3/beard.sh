@@ -1,7 +1,7 @@
 #!/bin/bash
 ## clipboy
 ## - reads from clipboard and does things
-## version 0.0.2 - clipboy dialog
+## version 0.0.3 - clipboy act
 ##################################################
 . ${SH2}/error.sh		# error handling
 error "true"			# show errors
@@ -11,8 +11,11 @@ error "true"			# show errors
 generate-temp() { ${SH2}/generate-temp.sh ${@} ; }
 ##################################################
 _cleanup() {
-  cecho yellow $( rm -rvf ${temp}-* )
+  {
+    cecho yellow $( rm -rvf ${temp}-* )
+  } 2>/dev/null
 }
+##################################################
 temp= 
 initialize() {
  temp=$( 
@@ -20,15 +23,18 @@ initialize() {
  )
  touch "${temp}-test"
 }
+##################################################
 clipboy-say() {
  cecho green "${@}"
 }
+##################################################
 clipboy-stretch() {
  clipboy-say $( clipboy-dialog stretch )
  touch "${temp}-clipboard"
  sleep 3
  clipboy-say "Me's stetchy!"
 }
+##################################################
 clipboy-run() {
  clipboy-say $( clipboy-dialog hi )
  clipboy-stretch
@@ -37,17 +43,24 @@ clipboy-run() {
  do
   clipboy-eat
   clipboy-think
+  clipboy-act
   ################################################
-  ## =todo=
-  ## + add payload here
+  ## =notes=
+  ## (1) block may depend on runtime mode later
   ################################################
-  #read
-  #break
+  [ ! ] && {
+   echo press enter key to continue
+   read
+  true
+  } || {
+   break
+  }
+  ################################################
   clipboy-sleep
-  ################################################
  done
  clipboy-say $( clipboy-dialog bye )
 }
+##################################################
 clipboy-eat() {
   clipboy-say $( clipboy-dialog hungry )
   {
@@ -55,6 +68,7 @@ clipboy-eat() {
   } 1>/dev/null
   clipboy-say $( clipboy-dialog delicious )
 }
+##################################################
 clipboy-think() {
   clipboy-say $( clipboy-dialog thinking )
   ################################################
@@ -64,41 +78,30 @@ clipboy-think() {
   {
     {
       diff ${temp}-{clipboard,infile} || true
-    } | head -n 3 
-  } 1>/dev/null
+    } #| head -n 3 
+  } #1>/dev/null
   ################################################
 }
+##################################################
 clipboy-sleep() {
  clipboy-say $( clipboy-dialog sleepy )
  sleep 5
 }
 ##################################################
-## =notes=
-## + add extra dialogs here
-##################################################
-clipboy-dialog-hi() {
- echo "Hey!"
-}
-clipboy-dialog-bye() {
- echo "Bye!"
-}
-clipboy-dialog-stretch() {
- echo "Me's stretch first.."
-}
-clipboy-dialog-hungry() {
- echo "Me's hungry ..."
-}
-clipboy-dialog-delicious() {
- echo "Um.. Um.. Yummy!"
-}
-clipboy-dialog-thinking() {
- echo "Me's thinking..."
-}
-clipboy-dialog-sleepy() {
- echo "Me's sleepy..."
-}
 clipboy-dialog() {
+ . $( dirname ${0} )/${FUNCNAME}.sh
+ test ! -f "$( dirname ${0} )/${FUNCNAME}-custom.sh" || {
+  . $( dirname ${0} )/${FUNCNAME}-custom.sh
+ }
  commands
+}
+##################################################
+clipboy-act() {
+ . $( dirname ${0} )/${FUNCNAME}.sh
+ test ! -f "$( dirname ${0} )/${FUNCNAME}-custom.sh" || {
+  . $( dirname ${0} )/${FUNCNAME}-custom.sh
+ }
+ ${FUNCNAME}
 }
 ##################################################
 clipboy() {
