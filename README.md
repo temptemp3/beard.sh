@@ -23,3 +23,10 @@ bash clipboy.sh run
 write me: installation and requirement details beyond quickstart
 
 ---
+
+### log
+
+ + 2018/11/09 - add support for dialog and act customization outside of core
+ + 2018/11/08 - initial
+
+---
