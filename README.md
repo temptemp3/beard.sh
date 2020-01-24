@@ -8,9 +8,9 @@ Reads from clipboard and performs actions based on contents
 
 ```
 {
-  git clone https://github.com/temptemp3/clipboy.sh.git
-  cd clipboy.sh
-  echo "clipboy() { bash $( realpath clipboy.sh ) \${@} ; }"  >> ~/.bashrc
+  git clone https://github.com/temptemp3/clipboy.sh.git niceboy
+  cd niceboy
+  echo 'niceboy() { bash '$( realpath clipboy.sh )' ${@} ; }' >> ~/.bashrc
 }
 ```
 
