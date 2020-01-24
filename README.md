@@ -30,6 +30,7 @@ write me: installation and requirement details beyond quickstart
 
 ### log
 
+ + 2020/01/24 - ass support for drop-in commands
  + 2018/11/09 - add support for dialog and act customization outside of core
  + 2018/11/08 - initial
 
