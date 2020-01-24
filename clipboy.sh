@@ -1,7 +1,7 @@
 #!/bin/bash
 ## clipboy
 ## - reads from clipboard and does things
-## version 0.1.0 - clipboy with commands
+## version 0.1.1 - fix entry
 ##################################################
 . ${SH2}/error.sh		# error handling
 error "true"			# show errors
@@ -118,7 +118,10 @@ clipboy() { { local candidate_command ; candidate_command="$( echo ${1} | cut '-
  done 2>/dev/null
  test ! "$( declare -f clipboy-${candidate_command} )" || {
    clipboy-${candidate_command} ${@}
+   # history here
+   return
  }
+ commands
 }
 ##################################################
 if [ ! ] 
