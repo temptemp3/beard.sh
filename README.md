@@ -7,11 +7,13 @@ Reads from clipboard and performs actions based on contents
 ## quickstart
 
 ```
-{
+(
   git clone https://github.com/temptemp3/clipboy.sh.git niceboy
   cd niceboy
   echo 'niceboy() { bash '$( realpath clipboy.sh )' ${@} ; }' >> ~/.bashrc
-}
+  bash
+  niceboy say hello
+)
 ```
 
 ### todo
