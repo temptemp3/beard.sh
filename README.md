@@ -10,10 +10,7 @@ Reads from clipboard and performs actions based on contents
 {
   git clone https://github.com/temptemp3/clipboy.sh.git
   cd clipboy.sh
-  clipboy() { 
-    bash ${PWD}/clipboy.sh ${@}
-  }
-  clipboy say hello
+  bash clipboy.sh say hello
 }
 ```
 
