@@ -1,7 +1,7 @@
 #!/bin/bash
 ## clipboy
 ## - reads from clipboard and does things
-## version 0.0.3 - clipboy act
+## version 0.1.0 - clipboy with commands
 ##################################################
 . ${SH2}/error.sh		# error handling
 error "true"			# show errors
@@ -104,9 +104,21 @@ clipboy-act() {
  ${FUNCNAME}
 }
 ##################################################
-clipboy() {
+clipboy-main() { 
+  list-available-commands clipboy-
+}
+clipboy() { { local candidate_command ; candidate_command="$( echo ${1} | cut '-d:' '-f1' )" ; }
  initialize
- commands
+ test -d "$( dirname ${0} )/commands" || mkdir -pv "${_}"
+ local command_found
+ for command_found in $( find $( dirname ${0} )/commands -type f -name "*-clipboy-${candidate_command}*.sh" )
+ do
+  cecho green importing $( basename ${command_found} .sh ) ...
+  . ${command_found}
+ done 2>/dev/null
+ test ! "$( declare -f clipboy-${candidate_command} )" || {
+   clipboy-${candidate_command} ${@}
+ }
 }
 ##################################################
 if [ ! ] 
