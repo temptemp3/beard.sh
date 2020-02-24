@@ -1,7 +1,7 @@
 #!/bin/bash
 ## clipboy
 ## - reads from clipboard and does things
-## version 0.1.1 - fix entry
+## version 0.1.2 - fix issue with help
 ##################################################
 . ${SH2}/error.sh		# error handling
 error "true"			# show errors
@@ -86,7 +86,7 @@ clipboy-main() {
   list-available-commands clipboy- \
   | sed -e 's/clipboy-//' \
   | grep -v -e '\$'
-}
+}-
 clipboy() { { local candidate_command ; candidate_command="$( echo ${1} | cut '-d:' '-f1' )" ; }
  initialize
  test -d "$( dirname ${0} )/commands" || mkdir -pv "${_}"
