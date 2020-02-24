@@ -14,7 +14,8 @@ Reads from clipboard and performs actions based on contents
   git clone https://github.com/temptemp3/clipboy.sh.git ${name}
   cd ${name}
   echo -e "\n${name}() { bash '$( realpath clipboy.sh )' \${@} ; }" >> ~/.bashrc
-  bash -c "${name} say hello"
+  source ~/.bashrc
+  ${name} say hello
 )
 ```
 
