@@ -8,11 +8,14 @@ Reads from clipboard and performs actions based on contents
 
 ```
 (
-  git clone https://github.com/temptemp3/clipboy.sh.git niceboy
-  cd niceboy
-  echo 'niceboy() { bash '$( realpath clipboy.sh )' ${@} ; }' >> ~/.bashrc
+  read -p "What's Me's name? (niceboy) " name
+  test ! -d "${name}" || { echo "Someone else has Me's name!" ; exit ; }
+  echo "Me's name is ${name}!"
+  git clone https://github.com/temptemp3/clipboy.sh.git ${name}
+  cd ${name}
+  echo "${name}() { bash '\$( realpath clipboy.sh )' \${@} ; }" >> ~/.bashrc
   bash
-  niceboy say hello
+  ${name} say hello
 )
 ```
 
