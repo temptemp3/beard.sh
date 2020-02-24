@@ -13,7 +13,7 @@ Reads from clipboard and performs actions based on contents
   echo "Me's name is ${name}!"
   git clone https://github.com/temptemp3/clipboy.sh.git ${name}
   cd ${name}
-  echo "${name}() { bash '$( realpath clipboy.sh )' \${@} ; }" >> ~/.bashrc
+  echo -e "\n${name}() { bash '$( realpath clipboy.sh )' \${@} ; }" >> ~/.bashrc
   bash -c "${name} say hello"
 )
 ```
