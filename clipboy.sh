@@ -105,7 +105,8 @@ clipboy-act() {
 }
 ##################################################
 clipboy-main() { 
-  list-available-commands clipboy-
+  list-available-commands clipboy- \
+  sed -e 's/clipboy-//'
 }
 clipboy() { { local candidate_command ; candidate_command="$( echo ${1} | cut '-d:' '-f1' )" ; }
  initialize
