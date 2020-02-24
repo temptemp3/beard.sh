@@ -61,28 +61,6 @@ clipboy-run() {
  clipboy-say $( clipboy-dialog bye )
 }
 ##################################################
-clipboy-eat() {
-  clipboy-say $( clipboy-dialog hungry )
-  {
-    cat /dev/clipboard > ${temp}-infile
-  } 1>/dev/null
-  clipboy-say $( clipboy-dialog delicious )
-}
-##################################################
-clipboy-think() {
-  clipboy-say $( clipboy-dialog thinking )
-  ################################################
-  ## =todo=
-  ## + add some decision making here
-  ################################################
-  {
-    {
-      diff ${temp}-{clipboard,infile} || true
-    } #| head -n 3 
-  } #1>/dev/null
-  ################################################
-}
-##################################################
 clipboy-sleep() {
  clipboy-say $( clipboy-dialog sleepy )
  sleep 5
@@ -106,7 +84,8 @@ clipboy-act() {
 ##################################################
 clipboy-main() { 
   list-available-commands clipboy- \
-  sed -e 's/clipboy-//'
+  | sed -e 's/clipboy-//' \
+  | grep -v -e '\$'
 }
 clipboy() { { local candidate_command ; candidate_command="$( echo ${1} | cut '-d:' '-f1' )" ; }
  initialize
