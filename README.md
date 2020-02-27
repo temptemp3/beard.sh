@@ -76,6 +76,7 @@ bob make:function test --single
 
 ## log
  
+ + 2020/02/27 - add initial features and usage 
  + 2020/02/26 - update quickstart to loop on missing name and include sh2 
  + 2020/02/24 - update quickstart (asks name), add make command
  + 2020/01/24 - add support for drop-in commands
