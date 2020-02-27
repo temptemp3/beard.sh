@@ -66,8 +66,11 @@ Suppose that we complete the quickstart and end up calling our personal assistan
 
 ### make a function 
 
-make:function
+bob make:function test
 
+By default, in the case of test, bob will create a directory called test.sh with script called test.sh. However, you may want bob to just create a bash script without a directory. In that case, we would added the --single long option as follows.
+
+bob make:function test --single
 
 ---
 
