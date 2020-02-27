@@ -53,7 +53,7 @@ Call it what you like framework for building extensible shell scripts in bash
 
 ---
 
-## Builtin features
+## builtin features
 
  + make command
     + make functions and new commands
