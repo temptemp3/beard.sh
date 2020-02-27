@@ -51,16 +51,6 @@ Reads from clipboard and performs actions based on contents
 }
 ```
 
-### todo
-
- + include sh2 installation in quickstart
-
----
-
-### installation and requirements
-
-write me: installation and requirement details beyond quickstart
-
 ---
 
 ### log
