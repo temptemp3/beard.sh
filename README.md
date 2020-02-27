@@ -1,6 +1,6 @@
 # clipboy.sh
 
-Reads from clipboard and performs actions based on contents
+Call it what you like framework for building extensible bash scripts 
 
 ---
 
