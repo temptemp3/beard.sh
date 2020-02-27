@@ -1,6 +1,6 @@
 # clipboy.sh
 
-Call it what you like framework for building extensible shell scripts in bash
+Call it what you like framework for building extensible shell scripts in bash for a personal assistant 
 
 ---
 
@@ -58,10 +58,20 @@ Call it what you like framework for building extensible shell scripts in bash
  + make command
     + make functions and new commands
 
+---
+
+## usage
+
+Suppose that we complete the quickstart and end up calling our personal assistant bob. Here follows all the things bob can do out of the box.
+
+### make a function 
+
+make:function
+
 
 ---
 
-### log
+## log
  
  + 2020/02/26 - update quickstart to loop on missing name and include sh2 
  + 2020/02/24 - update quickstart (asks name), add make command
