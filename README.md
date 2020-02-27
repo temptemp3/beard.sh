@@ -1,6 +1,6 @@
 # clipboy.sh
 
-Call it what you like framework for building extensible bash scripts 
+Call it what you like framework for building extensible shell scripts in bash
 
 ---
 
