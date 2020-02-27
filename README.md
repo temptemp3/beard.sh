@@ -53,6 +53,14 @@ Call it what you like framework for building extensible shell scripts in bash
 
 ---
 
+## Builtin features
+
+ + make command
+    + make functions and new commands
+
+
+---
+
 ### log
  
  + 2020/02/26 - update quickstart to loop on missing name and include sh2 
