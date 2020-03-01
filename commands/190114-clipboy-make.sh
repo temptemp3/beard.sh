@@ -1,7 +1,8 @@
 #!/bin/bash
 ## clipboy-make
-## version 0.0.1 - initial
+## version 0.0.2 - source create-stub2
 ##################################################
+create-stub2() { ${SH2}/${FUNCNAME}.sh ${@} ; }
 clipboy-make-command() { { local function_name ; function_name="${1}" ; }
   test "${function_name}" || {
     clipboy-say "What command Me makes?" 
