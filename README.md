@@ -44,10 +44,7 @@ Call it what you like framework for building extensible shell scripts in bash fo
     cd ${name}
     clone-sh2
     install
-    . ~/.bashrc
-    ${name} say hello
   )
-  . ~/.bashrc 
 }
 ```
 
