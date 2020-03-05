@@ -107,6 +107,8 @@ bob make:script new-script
 
 bob make:subcommand new-command-extension
 
+Running make:subcommand after make-script using the same argument links the subcommand to the script. This way we are able to isolate code that actually does something n the scripts directory.
+
 ---
 
 ## log
