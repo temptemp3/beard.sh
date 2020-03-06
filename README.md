@@ -6,6 +6,8 @@ Framework for building extensible shell scripts in bash for a personal assistant
 
 ## quickstart
 
+Run the following script. That's it.
+
 ```
 {
   (
