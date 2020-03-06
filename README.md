@@ -1,6 +1,6 @@
-# clipboy.sh
+# clipboy
 
-Call it what you like framework for building extensible shell scripts in bash for a personal assistant 
+Framework for building extensible shell scripts in bash for a personal assistant 
 
 ---
 
