@@ -115,7 +115,7 @@ Running make:subcommand after make-script using the same argument links the subc
 
 ## log
 
-
+ + 2020/07/15 - add make subcommands from neoboy
  + 2020/03/06 - expand on make command
  + 2020/03/01 - fixed missing create-stub2 for quickstart make commands
  + 2020/02/27 - add initial features and usage 
