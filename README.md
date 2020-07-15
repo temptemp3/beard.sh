@@ -1,6 +1,6 @@
 # clipboy
 
-Framework for building extensible shell scripts in bash for a personal assistant 
+Framework for building extensible run-anywhere shell scripts in bash for a personal assistant 
 
 ---
 
