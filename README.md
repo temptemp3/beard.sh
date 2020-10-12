@@ -56,6 +56,8 @@ Run the following script and give it a name. That's it.
 
  + make command
     + make functions and new commands
+ + install command
+    + add function to bashrc calling calling script at install path
 
 ---
 
@@ -78,6 +80,13 @@ bob command:help
 By default, help lists the sub commands available.
 
 The command command is not included out of the box.
+
+### install
+
+```bash
+cd /path/to/install
+bash clipboy.sh install
+```
 
 ### make
 
