@@ -77,19 +77,19 @@ Run the script below and give it a name. That's it.
 
 ## usage
 
-Suppose that we complete the quickstart and end up calling our personal assistant bob. Here follows all the things bob can do out of the box.
+Suppose that we complete the quickstart and end up calling our beard bob. Here follows all the things bob can do out of the box.
 
 ### commands
 
 It can run any command you have done in the commands directory.
 
-bob command
+`bob command`
 
 Specifying only the command as above forces the default sub command to run.
 
 Each command comes with a base set of sub commands, one of which is help. 
 
-bob command:help
+`bob command:help`
 
 By default, help lists the sub commands available.
 
@@ -122,17 +122,17 @@ make:function helpful when you need to need a point to start writing a new bash 
 
 #### commands
 
-bob make:command new-command
+`bob make:command new-command`
 
 #### scripts
 
-bob make:script new-script
+`bob make:script new-script`
 
 #### subcommands
 
-bob make:subcommand new-command-extension
+`bob make:subcommand new-command-extension`
 
-Running make:subcommand after make-script using the same argument links the subcommand to the script. This way we are able to isolate code that actually does something n the scripts directory.
+Running `make:subcommand` after `make:script` using the same argument links the subcommand to the script. This way we are able to isolate code that actually does something in the scripts directory.
 
 ---
 
