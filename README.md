@@ -6,12 +6,16 @@ Features:
 - Hands free code generation
 - Easy install
 
-Contents
+---
+
+Table of contents
 - features
 - quickstart
 - builtin commands
 - usage
 - log
+
+---
 
 ## features
 
