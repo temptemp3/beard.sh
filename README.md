@@ -108,15 +108,15 @@ It comes with a builtin command to make things including lemonade if you are unf
 
 #### functions
 
-bob make:function test
+`bob make:function test`
 
 By default, in the case of test, bob will create a directory called test.sh with script called test.sh. However, you may want bob to just create a bash script without a directory. In that case, we would added the --single long option as follows.
 
-bob make:function test --single
+`bob make:function test --single`
 
 Optional, you may also provide the --dated option to instruct it to prefix the filename with a date string, that is, yymmdd.
 
-bob make:function test --single --dated
+`bob make:function test --single --dated`
 
 make:function helpful when you need to need a point to start writing a new bash script. However, it may be used to extend it, there is a sub command more helpful call command.
 
