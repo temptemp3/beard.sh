@@ -3,16 +3,20 @@
 Grow scripts like a beard!  
 Minimalist framework for building extensible bash scripts.  
 Includes:  
-- Code generation
-  + functions
-  + scripts
-  + commands
-  + subcommands
+- Hands free code generation
 - Easy install
-  + Quickstart
-  + Install command
 
----
+## features
+
+### hands free code generation
+
+No more touching files and creating scripts from scratch!  
+Hands free code generation takes care of boilerplate code and command routing so you don't have to!
+
+### easy install
+
+Get started in seconds!  
+Want to install without using quickstart? No problem! Use the install script!
 
 ## quickstart
 
@@ -134,6 +138,7 @@ Running make:subcommand after make-script using the same argument links the subc
 
 ## log
 
+ + 2020/10/13 - rename: clipboy.sh -> beard.sh
  + 2020/10/12 - add install command
  + 2020/07/15 - add make subcommands from neoboy, fix quickstart (sh3 -> sh2)
  + 2020/03/06 - expand on make command
