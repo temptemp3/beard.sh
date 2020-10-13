@@ -3,8 +3,14 @@
 Grow scripts like a beard!  
 Minimalist framework for building extensible bash scripts.  
 Includes:  
-- Commands for code generation of functions, scripts, commands, and subcommands
-- Install command for setup without quickstart
+- Code generation
+  + functions
+  + scripts
+  + commands
+  + subcommands
+- Easy install
+  + Quickstart
+  + Install command
 
 ---
 
