@@ -56,7 +56,7 @@ Run the script below and give it a name. That's it.
     get-name
     exit-on-duplicate-name
     echo "Me's name is ${name}!"
-    clone clipboy.sh ${name}
+    clone beard.sh ${name}
     cd ${name}
     clone-sh2
     install
