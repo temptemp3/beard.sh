@@ -3,8 +3,8 @@
 Grow scripts like a beard!  
 Minimalist framework for building extensible bash scripts.  
 Features:  
-- Hands free code generation
-- Easy install
+- ⚡ &nbsp; Hands free code generation
+- 💾  &nbsp; Easy install
 
 ---
 
