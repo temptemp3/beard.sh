@@ -9,7 +9,7 @@ Features:
 ---
 
 Table of contents
-- features
+- [features](#features)
 - quickstart
 - builtin commands
 - usage
