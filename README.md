@@ -2,9 +2,16 @@
 
 Grow scripts like a beard!  
 Minimalist framework for building extensible bash scripts.  
-Includes:  
+Features:  
 - Hands free code generation
 - Easy install
+
+Contents
+- features
+- quickstart
+- builtin commands
+- usage
+- log
 
 ## features
 
@@ -66,7 +73,7 @@ Run the script below and give it a name. That's it.
 
 ---
 
-## builtin features
+## builtin commands
 
  + make command
     + make functions and new commands
