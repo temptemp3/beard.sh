@@ -1,12 +1,16 @@
-# clipboy
+# Beard.sh
 
-Framework for building extensible run-anywhere shell scripts in bash for a personal assistant 
+Grow scripts like a beard!  
+Minimalist framework for building extensible bash scripts.  
+Includes:  
+- Commands for code generation of functions, scripts, commands, and subcommands
+- Install command for setup without quickstart
 
 ---
 
 ## quickstart
 
-Run the following script and give it a name. That's it.
+Run the script bellow and give it a name. That's it.
 
 ```
 {
