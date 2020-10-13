@@ -10,10 +10,10 @@ Features:
 
 Table of contents
 - [features](#features)
-- quickstart
-- builtin commands
-- usage
-- log
+- [quickstart](#quickstart)
+- [builtin commands](#builtin_commands)
+- [usage](#usage)
+- [log](#log)
 
 ---
 
