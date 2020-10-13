@@ -93,7 +93,7 @@ Each command comes with a base set of sub commands, one of which is help.
 
 By default, help lists the sub commands available.
 
-The command command is not included out of the box.
+The command `command` is not included out of the box.
 
 ### install
 
