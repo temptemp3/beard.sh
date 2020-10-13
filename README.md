@@ -11,7 +11,7 @@ Features:
 Table of contents
 - [features](#features)
 - [quickstart](#quickstart)
-- [builtin commands](#builtin_commands)
+- [builtin commands](#builtin-commands)
 - [usage](#usage)
 - [log](#log)
 
