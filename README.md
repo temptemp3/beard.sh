@@ -29,6 +29,8 @@ Hands free code generation takes care of boilerplate code and command routing so
 Get started in seconds!  
 Want to install without using quickstart? No problem! Use the install script!
 
+---
+
 ## quickstart
 
 Run the script below and give it a name. That's it.
