@@ -20,7 +20,7 @@ Want to install without using quickstart? No problem! Use the install script!
 
 ## quickstart
 
-Run the script bellow and give it a name. That's it.
+Run the script below and give it a name. That's it.
 
 ```
 {
