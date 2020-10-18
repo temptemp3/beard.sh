@@ -65,6 +65,9 @@ Run the script below and give it a name. That's it.
     install() {
       echo -e "\n${name}() { bash '$( realpath clipboy.sh )' \${@} ; }" >> ~/.bashrc
     }
+    fix-permissions() {
+      find . -type f -name \*.sh | xargs chmod u+x
+    }
     name=""
     get-name
     exit-on-duplicate-name
@@ -72,6 +75,7 @@ Run the script below and give it a name. That's it.
     clone beard.sh ${name}
     cd ${name}
     clone-sh2
+    fix-permissions
     install
   )
 }
@@ -151,6 +155,7 @@ Running `make:subcommand` after `make:script` using the same argument links the 
 
 ## log
 
+ + 2020/10/18 - add fix-permissions to quickstart
  + 2020/10/13 - rename: clipboy.sh -> beard.sh
  + 2020/10/12 - add install command
  + 2020/07/15 - add make subcommands from neoboy, fix quickstart (sh3 -> sh2)
