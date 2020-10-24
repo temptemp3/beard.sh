@@ -77,6 +77,7 @@ Run the script below and give it a name. That's it.
     clone-sh2
     fix-permissions
     install
+    source ~/.bashrc
   )
 }
 ```
@@ -155,6 +156,7 @@ Running `make:subcommand` after `make:script` using the same argument links the 
 
 ## log
 
+ + 2020/10/24 - add source to quickstart
  + 2020/10/18 - add fix-permissions to quickstart
  + 2020/10/13 - rename: clipboy.sh -> beard.sh
  + 2020/10/12 - add install command
