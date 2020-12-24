@@ -1,11 +1,12 @@
 #!/bin/bash
 ## store-list
-## version 0.0.1 - initial
+## version 0.0.2 - w/o xargs
 ##################################################
  . ${SH2}/store.sh
-_store-list() { { local key ; key="${1}" ; local value ; value="${2}" ; }
+_store-list() { 
   init-store-silent
-  for key in $( echo ${!store[@]} | xargs -i '-d ' echo {} )
+  local key
+  for key in ${!store[@]}
   do
    echo ${key}: ${store[${key}]}
   done
