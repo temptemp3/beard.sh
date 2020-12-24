@@ -38,9 +38,15 @@ Run the script below and give it a name. That's it.
 ```
 {
   (
+    clone-sh2() {
+      test "${SH2}" || {
+        clone sh2 
+        echo -e "\ndeclare -x SH2='$( realpath sh2 )'" >> ~/.bashrc 
+      }
+    }
     clone() {
       git clone https://github.com/temptemp3/${1}.git ${2:-${1}}
-    } 
+    }
     prompt-name() {
       read -p "What's Me's name? (niceboy) " name
     }
@@ -56,27 +62,35 @@ Run the script below and give it a name. That's it.
         exit 
       }
     }
-    clone-sh2() {
-      test "${SH2}" || {
-        clone sh2 
-        echo -e "\ndeclare -x SH2='$( realpath sh2 )'" >> ~/.bashrc 
-      }
-    }
     install() {
       echo -e "\n${name}() { bash '$( realpath clipboy.sh )' \${@} ; }" >> ~/.bashrc
     }
     fix-permissions() {
       find . -type f -name \*.sh | xargs chmod u+x
     }
+    if-darwin() {
+      test ! "$( uname )" = "Darwin" || {
+        which dos2unix &>/dev/null || {
+          brew install dos2unix
+        }
+        {
+          find ${name} -type f -name \*.sh \
+          | xargs dos2unix
+        }
+      }
+    }
     name=""
     get-name
     exit-on-duplicate-name
     echo "Me's name is ${name}!"
     clone beard.sh ${name}
-    cd ${name}
-    clone-sh2
-    fix-permissions
-    install
+    (
+      cd ${name}
+      clone-sh2
+      fix-permissions
+      install
+    )
+    if-darwin
     source ~/.bashrc
   )
 }
@@ -156,6 +170,7 @@ Running `make:subcommand` after `make:script` using the same argument links the 
 
 ## log
 
+ + 2020/12/24 - add darwin install help to quickstart
  + 2020/10/24 - add source to quickstart
  + 2020/10/18 - add fix-permissions to quickstart
  + 2020/10/13 - rename: clipboy.sh -> beard.sh
