@@ -102,6 +102,8 @@ Run the script below and give it a name. That's it.
 
  + make command
     + make functions and new commands
+ +  store command
+    + get, set, and list stored values
  + install command
     + add function to bashrc calling calling script at install path
 
@@ -165,6 +167,38 @@ make:function helpful when you need to need a point to start writing a new bash 
 `bob make:subcommand new-command-extension`
 
 Running `make:subcommand` after `make:script` using the same argument links the subcommand to the script. This way we are able to isolate code that actually does something in the scripts directory.
+
+### store
+
+`bob store:subcommand args`
+
+#### get
+
+`bob store:get tel`
+
+```
+bob store:get tel
+123456789
+```
+
+#### set
+
+`bob store:set tel 123456789`
+
+```
+bob store:set tel 123456789
+
+```
+
+#### list
+
+`bob store:list`
+
+```
+$ bob store:list 
+tel: 123456789
+fax: 123456780
+```
 
 ---
 
