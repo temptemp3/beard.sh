@@ -220,3 +220,8 @@ fax: 123456780
  + 2018/11/08 - initial
 
 ---
+
+## todo
+
++ requires jq, add install if required
++ requires function export, declare -xf coinboy
