@@ -1,6 +1,6 @@
 #!/bin/bash
 ## watch-price
-## version 0.0.1 - initial
+## version 0.0.2 - add ts, save price data
 ##################################################
 _watch-price() { 
   local spot
@@ -40,7 +40,7 @@ _watch-price() {
        grace_period=${GRACE_PERIOD_START}
      }
    }
-   this="spot: ${spot}|buy: ${buy}|sell: ${sell}|low: ${low}|high: ${high}|${action}"
+   this="ts: $( date +%s )|spot: ${spot}|buy: ${buy}|sell: ${sell}|low: ${low}|high: ${high}|${action}"
    line=""
    for i in $( seq 0 ${#this} )
    do
@@ -56,6 +56,7 @@ _watch-price() {
    test ! "${this}" != "${last}" || {
      test ! "${last}" != "" || {
        echo -e "${line//|/\\t}"
+       echo -e "${this//|/\\t}" >> $( date +%Y%m%d )
      }
      last="${this}"
    }
