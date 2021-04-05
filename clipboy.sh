@@ -29,21 +29,21 @@ clipboy-main() {
   | grep -v -e '\$'
 }
 clipboy() { { local candidate_command ; candidate_command="$( echo ${1} | cut '-d:' '-f1' )" ; }
- initialize
- test ! "${candidate_command}" = "say" || shift
- test -d "$( dirname ${0} )/commands" || mkdir -pv "${_}"
- local command_found
- for command_found in $( find $( dirname ${0} )/commands -type f -name "*-clipboy-${candidate_command}*.sh" )
- do
-  cecho green importing $( basename ${command_found} .sh ) ...
-  . ${command_found}
- done 2>/dev/null
- test ! "$( declare -f clipboy-${candidate_command} )" || {
-   clipboy-${candidate_command} ${@}
-   # history here
-   return
- }
- commands
+  initialize
+  test ! "${candidate_command}" = "say" || shift
+  test -d "$( dirname ${0} )/commands" || mkdir -pv "${_}"
+  local command_found
+  for command_found in $( find $( dirname ${0} )/commands -type f -name "*-clipboy-${candidate_command}*.sh" )
+  do
+   cecho green importing $( basename ${command_found} .sh ) ...
+   . ${command_found}
+  done 2>/dev/null
+  test ! "$( declare -f clipboy-${candidate_command} )" || {
+    clipboy-${candidate_command} ${@}
+    # history here
+    return
+  }
+  commands
 }
 ##################################################
 if [ ! ] 
