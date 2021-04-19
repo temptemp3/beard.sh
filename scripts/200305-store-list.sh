@@ -2,7 +2,6 @@
 ## store-list
 ## version 0.0.2 - w/o xargs
 ##################################################
- . ${SH2}/store.sh
 _store-list() { 
   init-store-silent
   local key

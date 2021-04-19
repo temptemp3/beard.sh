@@ -2,7 +2,6 @@
 ## store-get
 ## version 0.0.1 - initial
 ##################################################
- . ${SH2}/store.sh
 _store-get() { { local key ; key="${1}" ; local value ; value="${2}" ; }
   init-store-silent
   store get ${key} ${value}
