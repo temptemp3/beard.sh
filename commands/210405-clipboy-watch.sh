@@ -1,6 +1,6 @@
 #!/bin/bash
 ## watch
-## version 0.0.1 - initial
+## version 0.0.2 - add today
 ##################################################
 command-name-third-person-present() {
   echo "${command_name}s"
@@ -17,7 +17,8 @@ clipboy-watch-help() {
   clipboy-${command_name}
 }
 clipboy-watch() { { local command_type ; command_type="$( echo ${1} | cut '-d:' '-f2' )" ; }
- local command_name
+  local command_name
+  local -r today=$( date +%y%m%d )
   command_name="watch"
   case "$( declare -f ${FUNCNAME}-${command_type} )" in
    "") {

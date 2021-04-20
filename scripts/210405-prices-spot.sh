@@ -1,30 +1,9 @@
 #!/bin/bash
 ## prices-spot
-## version 0.0.1 - initial
+## version 0.0.2 - minimal
 ##################################################
-_prices-spot() { { local currency_pair ; currency_pair="${1}" ; }
-  local timestamp=$( date +%s )
-  local method="GET" 
-  local request_path
-  case ${1} in
-   *) request_path="/v2/prices/${currency_pair}/spot" ;;
-  esac
-  local body=""
-  local signature=$( echo -n "${timestamp}${method}${request_path}${body}" | openssl dgst -sha256 -hmac "${coinbase_api_secret}" )
-  local res=$(
-    curl "https://api.coinbase.com${request_path}" \
-    -H "CB-ACCESS-KEY: ${coinbase_api_key}" \
-    -H "CB-ACCESS-SIGN: ${signature}" \
-    -H "CB-ACCESS-TIMESTAMP: ${timestamp}" \
-    -H "CB-VERSION: 2021-03-20" \
-    --silent
-  ) 
-  local price=$( echo "${res}" | jq -r '.data.amount' )
-  local decimal="${price//*./}"
-  test ! ${#decimal} -eq 1 || {
-    price="${price}0"
-  }
-  echo -n "${price}"
+_prices-spot() { { local currency_pair ; currency_pair="${1:-BTC-USD}" ; }
+  _prices-type spot
 }
 ##################################################
 _prices-spot ${@}

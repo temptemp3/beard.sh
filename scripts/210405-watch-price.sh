@@ -1,8 +1,21 @@
 #!/bin/bash
 ## watch-price
-## version 0.0.2 - add ts, save price data
+## version 0.0.3 - refactor
 ##################################################
-_watch-price() { 
+shopt -s expand_aliases
+alias bind-variables='
+{
+  local -r PAIR="${1:-BTC-USD}"
+  local -r LOG="${2:-BTC-USD-yymmdd}"
+  local -ir DELAY=${3:-1}
+  local -ir GRACE_PERIOD_START=5
+  local -ir PAIR_SCALE=$( coinboy store:get ${PAIR,,}-scale )
+  local -ixr SCALE="${PAIR_SCALE:-8}"
+  local -i funds=10
+  local buy_pool=0
+  local -i cost_basis=0
+  local proceeds=0
+  local -i iteration=0
   local spot
   local buy 
   local sell
@@ -11,59 +24,167 @@ _watch-price() {
   local this
   local last
   local line
-  local i
   local action
-  local -i delay
+  local last_action
   local -i grace_period
-  local -ir GRACE_PERIOD_START=300
-  delay=1
-  grace_period=${GRACE_PERIOD_START}
-  spot=$( coinboy prices:spot BTC-USD )
-  high="${spot}"
-  low="${spot}"
-  while :
-  do 
-   spot=$( coinboy prices:spot BTC-USD )
-   buy=$( coinboy prices:buy BTC-USD )
-   sell=$( coinboy prices:sell BTC-USD )
+  local -i ts
+}
+'
+subtract() {
+  local diff
+  diff=$( echo "${1} - ${2}" | bc -l )
+  echo -n "${diff}"
+}
+setup-sell() {
+  sell=$( coinboy prices:sell "${PAIR}" )
+}
+setup-buy() {
+  buy=$( coinboy prices:buy "${PAIR}" )
+}
+setup-spot() {
+  spot=$( coinboy prices:spot "${PAIR}" )
+}
+setup-prices() {
+  setup-sell
+  setup-buy
+  setup-spot
+}
+setup-ts() {
+  ts=$( date +%s )
+}
+setup-this() {
+  this="ts: ${ts}|spot: ${spot}|buy: ${buy}|sell: ${sell}|low: ${low}|high: ${high}"
+}
+setup-line() {
+  local i
+  local this_c
+  local last_c
+  line=""
+  for i in $( seq 0 ${#this} )
+  do
+   this_c="${this:i:1}" 
+   last_c="${last:i:1}"
+   test ! "${this_c}" != "${last_c}" && {
+     line="${line}${this_c}"
+   true
+   } || {
+     line="${line}\e[41m${this_c}\e[0m"
+   }
+  done 
+}
+setup-action() {
    action=""
-   test ! ${grace_period} -le 1 || {
-     test ! ${spot/.*/} -gt ${high/.*/} || {
-       action="SELL"
-       high="${spot}"
-       low="${spot}"
-       grace_period=${GRACE_PERIOD_START}
-     }
-     test ! ${spot/.*/} -lt ${low/.*/} || {
-       action="BUY"
-       low="${spot}"
-       grace_period=${GRACE_PERIOD_START}
-     }
-   }
-   this="ts: $( date +%s )|spot: ${spot}|buy: ${buy}|sell: ${sell}|low: ${low}|high: ${high}|${action}"
-   line=""
-   for i in $( seq 0 ${#this} )
-   do
-    this_c="${this:i:1}" 
-    last_c="${last:i:1}"
-    test ! "${this_c}" != "${last_c}" && {
-      line="${line}${this_c}"
-    true
-    } || {
-      line="${line}\e[41m${this_c}\e[0m"
-    }
-   done 
-   test ! "${this}" != "${last}" || {
-     test ! "${last}" != "" || {
-       echo -e "${line//|/\\t}"
-       echo -e "${this//|/\\t}" >> $( date +%Y%m%d )
-     }
-     last="${this}"
-   }
-   sleep ${delay}
+   test ! ${grace_period:-2} -gt 1 || { true ; return ; } # guard grace period
+   handle-actions
+}
+setup-proceeds() {
+  proceeds=$( echo "${buy_pool} * ${spot}" | bc -l )
+}
+setup() {
+  setup-prices
+  setup-ts
+  setup-this
+  setup-action
+  setup-line
+  setup-proceeds
+}
+tick-grace-period() {
    test ! ${grace_period} -gt 1 || {
      let grace_period-=1
    }
+}
+tick-delay() { 
+  sleep ${DELAY}
+}
+tick-iteration() {
+  iteration+=1
+}
+tick-last() {
+  last="${this}"
+}
+tick() {
+  tick-iteration
+  tick-grace-period
+  tick-last
+  tick-delay  
+}
+initialize-grace-period() {
+  grace_period=${GRACE_PERIOD_START}
+}
+initialize-prices() {
+  high="${spot}"
+  low="${spot}"
+}
+initialize() {
+  initialize-grace-period
+  initialize-prices
+}
+handle-sell() {
+  local diff_high
+  diff_high=$( subtract "${high}" "${spot}" )
+  test "${diff_high/-*/}" || {
+     test "${last_action}" = "SELL" && {
+       cecho yellow REVERSE
+       on-buy
+     true
+     } || {
+       on-sell
+     }
+     false
+   }
+}
+handle-buy() {
+  local diff_low
+  diff_low=$( subtract "${spot}" "${low}" )
+   test "${diff_low/-*/}" || {
+     on-buy
+     false
+   }
+}
+handle-actions() {
+  handle-buy || { true : return ; }
+  handle-sell || { true : return ; }
+}
+on-sell() {
+  action="SELL"
+  high="${spot}"
+  low="${spot}"
+  grace_period=${GRACE_PERIOD_START}
+  last_action="${action}"
+}
+on-buy() {
+  local buy_amount
+  action="BUY"
+  buy_amount=$( echo "scale=${SCALE}; 1/${spot}" | bc -l )
+  cost_basis+=1
+  funds+=-1
+  buy_pool=$( echo "${buy_pool} + ${buy_amount}" | bc -l )
+  proceeds=$( echo "${buy_pool} * ${spot}" | bc -l )
+  cecho yellow "buy_amount: ${buy_amount}"
+  cecho yellow "buy_pool: ${buy_pool}"
+  cecho yellow "spot: ${spot}"
+  cecho yellow "proceeds: ${proceeds}"
+  low="${spot}"
+  grace_period=${GRACE_PERIOD_START}
+  last_action="${action}"
+}
+on-updated() {
+  test ! "${this}" != "${last}" || {
+    test ! "${last}" != "" || {
+      echo -e "${line//|/\\t}\tfunds: ${funds}\tbuy_pool: ${buy_pool}\tcost_basis: ${cost_basis}\tproceeds: ${proceeds}\t${action}" | cut '-f2-'
+      echo -e "${spot}\t${buy}\t${sell}" >> ${LOG}
+    }   
+  }
+}
+_watch-price() { 
+  bind-variables
+  setup
+  initialize
+  while :
+  do 
+   setup
+   on-updated
+   tick
   done
 }
 ##################################################

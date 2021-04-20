@@ -1,6 +1,6 @@
 #!/bin/bash
 ## prices
-## version 0.0.1 - initial
+## version 0.0.2 - add functions
 ##################################################
 command-name-third-person-present() {
   echo "${command_name}s"
@@ -16,8 +16,27 @@ clipboy-prices-help() {
   unset -f clipboy-${command_name}-default
   clipboy-${command_name}
 }
+get-price() {
+  local price=$( request | jq -r '.data.amount' )
+  local decimal="${price//*./}"
+  test ! ${#decimal} -lt ${SCALE:-2} || {
+    local i
+    for i in $( seq $(( ${SCALE} - ${#decimal} )) )
+    do
+     price="${price}0"
+    done
+  }
+  echo -n "${price}"
+}
+_prices-type() { { local type ; type="${2:-spot}" ; }
+  local timestamp=$( date +%s )
+  local method="GET" 
+  local request_path="/v2/prices/${currency_pair}/${type}" ;
+  local price=$( get-price )
+  echo -n "${price}"
+}
 clipboy-prices() { { local command_type ; command_type="$( echo ${1} | cut '-d:' '-f2' )" ; }
- local command_name
+  local command_name
   command_name="prices"
   case "$( declare -f ${FUNCNAME}-${command_type} )" in
    "") {

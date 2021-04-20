@@ -1,25 +1,15 @@
 #!/bin/bash
 ## clipboy
 ## - reads from clipboard and does things
-## version 0.1.3 - stripdown, shift on say
+## version 0.1.4 - stripdown, add coinboy specific
 ##################################################
 . ${SH2}/error.sh		# error handling
 error "true"			# show errors
 . ${SH2}/cecho.sh		# colored echo
 . ${SH2}/aliases/commands.sh	# commands
-generate-temp() { ${SH2}/generate-temp.sh ${@} ; }
-_cleanup() {
-  {
-    cecho yellow $( rm -rvf ${temp}-* )
-  } 2>/dev/null
-}
-temp= 
-initialize() {
- temp=$( 
-  generate-temp 
- )
- touch "${temp}-test"
-}
+. ${SH2}/store.sh # store
+. ${SH2}/getops.sh # getops
+. $( dirname ${0} )/api.sh # request
 clipboy-say() {
  cecho green "${@}"
 }
@@ -29,7 +19,6 @@ clipboy-main() {
   | grep -v -e '\$'
 }
 clipboy() { { local candidate_command ; candidate_command="$( echo ${1} | cut '-d:' '-f1' )" ; }
-  initialize
   test ! "${candidate_command}" = "say" || shift
   test -d "$( dirname ${0} )/commands" || mkdir -pv "${_}"
   local command_found
