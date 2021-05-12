@@ -106,6 +106,8 @@ Run the script below and give it a name. That's it.
     + get, set, and list stored values
  + install command
     + add function to bashrc calling calling script at install path
+ + shellcheck command, requires [shellcheck](https://github.com/koalaman/shellcheck)
+    + analyze source code
 
 ---
 
@@ -198,6 +200,23 @@ bob store:set tel 123456789
 $ bob store:list 
 tel: 123456789
 fax: 123456780
+```
+
+### shellcheck
+
+#### all
+
+`bob shellcheck:all`
+
+```
+$ bob shellcheck:all
+checking for shellcheck ... 
+ok
+checking scripts/200305-store-get.sh ...
+ok
+checking scripts/200305-store-list.sh ...
+ok
+...
 ```
 
 ---
