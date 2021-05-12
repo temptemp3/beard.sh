@@ -204,6 +204,7 @@ fax: 123456780
 
 ## log
 
+ + 2021/05/12 - add shellcheck command 
  + 2020/12/24 - add darwin install help to quickstart
  + 2020/10/24 - add source to quickstart
  + 2020/10/18 - add fix-permissions to quickstart
