@@ -1,9 +1,9 @@
 #!/bin/bash
 ## clipboy-make-subcommand
-## version 0.0.1 - initial
+## version 0.0.2 - shellcheck
 ##################################################
 clipboy-make-subcommand() { { local function_name ; function_name="${1}" ; }
-  set -v -x
+  # shellcheck disable=SC2154
   function-body-script() {
     cat << EOF
   . \$( dirname \${0} )/scripts/$( date +%y%m%d )-${program}.sh \${@}
@@ -15,22 +15,23 @@ EOF
   true
 EOF
   }
+  # shellcheck disable=SC2128
   function-body() {
-    set -v -x
     test ! -f "${scripts}/$( date +%y%m%d )-${program}.sh"  || { 
       echo "using script" 1>&2
-      ${FUNCNAME}-script 
+      "${FUNCNAME}-script"
       return
     }
     cecho "using true" 1>&2
-    ${FUNCNAME}-true
+    "${FUNCNAME}-true"
   }
   test "${function_name}" || {
     clipboy-say "What subcommand Me makes?" 
-    read candidate_command
+    read -r candidate_command
     function_name=${candidate_command}
   }
   test ! "${function_name}" || {
+    # shellcheck disable=SC2086
     test -f "$( dirname ${0} )/${function_name}.sh" || {
       clipboy-say "Me makes ${function_name} subcommand"
       {
@@ -60,9 +61,10 @@ EOF
 	  declare -xf function-body
 	  declare -xf function-body-script
 	  declare -xf function-body-true
-	  declare -x scripts="$( dirname ${0} )/scripts"
+	  declare -x scripts
+	  scripts="$( dirname ${0} )/scripts"
           create-stub2 ${function_name} 
-        } | tee $( dirname ${0} )/commands/$( date +%y%m%d )-clipboy-${function_name}.sh
+        } | tee "$( dirname ${0} )/commands/$( date +%y%m%d )-clipboy-${function_name}.sh"
       } &>/dev/null
     }
   }  

@@ -1,18 +1,20 @@
 #!/bin/bash
 ## make-script
-## version 0.0.1 - initial
+## version 0.0.2 - shellcheck
 ##################################################
 clipboy-make-script() { { local function_name ; function_name="${1}" ; }
   test "${function_name}" || {
     clipboy-say "What script Me makes?" 
-    read candidate_command
+    read -r candidate_command
     function_name=${candidate_command}
   }
   test ! "${function_name}" || {
+    # shellcheck disable=SC2086
     test -f "$( dirname ${0} )/${function_name}.sh" || {
       clipboy-say "Me makes ${function_name} script"
       {
         {
+          # shellcheck disable=SC2154
           create-stub-generate-stub-head() { 
 	    cat << EOF
 #!/bin/bash
@@ -38,10 +40,10 @@ EOF
 	  declare -xf create-stub-generate-stub-head
 	  declare -xf create-stub-generate-stub-entry
 	  test -d "$( dirname ${0} )/scripts" || {
-	    cecho yellow $( mkdir -pv ${_} )
+	    cecho yellow "$( mkdir -pv ${_} )"
           }
           create-stub2 ${function_name} 
-        } | tee $( dirname ${0} )/scripts/$( date +%y%m%d )-${function_name}.sh
+        } | tee "$( dirname ${0} )/scripts/$( date +%y%m%d )-${function_name}.sh"
       } &>/dev/null
     }
   } 

@@ -1,6 +1,6 @@
 #!/bin/bash
 ## store
-## version 0.0.1 - initial
+## version 0.0.2 - shellcheck
 ##################################################
 command-name-third-person-present() {
   echo "${command_name}s"
@@ -12,19 +12,20 @@ clipboy-store-help() {
   clipboy-store() {
     commands
   }
-  unset -f clipboy-${command_name}-help
-  unset -f clipboy-${command_name}-default
-  clipboy-${command_name}
+  unset -f "clipboy-${command_name}-help"
+  unset -f "clipboy-${command_name}-default"
+  "clipboy-${command_name}"
 }
-clipboy-store() { { local command_type ; command_type="$( echo ${1} | cut '-d:' '-f2' )" ; }
+clipboy-store() { { local command_type ; command_type=$( echo "${1}" | cut '-d:' '-f2' ) ; }
  local command_name
   command_name="store"
-  case "$( declare -f ${FUNCNAME}-${command_type} )" in
+  # shellcheck disable=SC2128
+  case $( declare -f "${FUNCNAME}-${command_type}" ) in
    "") {
-     ${FUNCNAME}-default
+     "${FUNCNAME}-default"
    } ;;
    *) {
-     ${FUNCNAME}-${command_type} ${@:2}
+     "${FUNCNAME}-${command_type}" "${@:2}"
    } ;;
   esac
 }
