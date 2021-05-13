@@ -221,6 +221,13 @@ ok
 
 ---
 
+## todo
+
+1. add shellcheck command scripts
+2. add branch selection to quickstart
+
+---
+
 ## log
 
  + 2021/05/12 - add shellcheck command 
