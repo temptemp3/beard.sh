@@ -1,17 +1,12 @@
 #!/bin/bash
 ## store-list
-## version 0.0.3 - shellcheck
+## version 0.0.3 - use store list
 ##################################################
 # shellcheck disable=SC1091
  . "${SH2}/store.sh"
 _store-list() { 
   init-store-silent
-  local key
-  # shellcheck disable=SC2154
-  for key in "${!store[@]}"
-  do
-   echo "${key}: ${store[${key}]}"
-  done
+  store list
 }
 ##################################################
 _store-list
